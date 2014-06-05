@@ -1,0 +1,25 @@
+{
+    "name": "undefined-exception-coders/media-bundle",
+    "description": "The MediaBundle provides a way to store any media and provides a generic base of common interfaces and models that allow the user to build media management solutions",
+    "type": "symfony-bundle",
+    "keywords": [
+        "symfony2","media","upload","provider","image","framework"
+    ],
+    "license": "MIT",
+    "homepage": "https://github.com/undefined-exception-coders/UECMediaBundle",
+    "authors": [
+        {
+            "name": "Damiano Ciarla",
+            "email": "damiano.ciarla@gmail.com",
+            "homepage": "http://www.damianociarla.it/"
+        }
+    ],
+    "require": {
+        "php": ">=5.3",
+        "symfony/symfony": "2.3.*"
+    },
+    "autoload": {
+        "psr-0": { "UEC\\MediaBundle": "" }
+    },
+    "target-dir": "UEC/MediaBundle"
+}

@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="uec_media.form.base.class">UEC\MediaBundle\Form\Type\MediaFormType</parameter>
+        <parameter key="uec_media.form.factory.class">UEC\MediaBundle\Form\FormFactory</parameter>
+    </parameters>
+
+    <services>
+        <service id="uec_media.form.base" class="%uec_media.form.base.class%">
+            <argument>%uec_media.model.class%</argument>
+            <tag name="form.type" alias="uec_media_form" />
+        </service>
+        <service id="uec_media.form.factory" class="%uec_media.form.factory.class%">
+            <argument type="service" id="uec_media.services.provider" />
+            <argument type="service" id="form.factory" />
+            <argument type="service" id="uec_media.services.media" />
+        </service>
+    </services>
+</container>

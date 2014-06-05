@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="uec_media.services.media_manager.class">UEC\MediaBundle\Services\MediaManager</parameter>
+        <parameter key="uec_media.services.media.class">UEC\MediaBundle\Services\MediaService</parameter>
+        <parameter key="uec_media.services.provider.class">UEC\MediaBundle\Services\ProviderService</parameter>
+    </parameters>
+
+    <services>
+        <service id="uec_media.services.media_manager" class="%uec_media.services.media_manager.class%">
+            <argument type="service" id="uec_media.services.provider" />
+            <argument type="service" id="uec_media.path_generator" />
+            <argument type="service" id="uec_media.file_name_generator" />
+            <argument type="service" id="uec_media.manager.media" />
+            <argument type="service" id="event_dispatcher" />
+        </service>
+        <service id="uec_media.services.provider" class="%uec_media.services.provider.class%">
+            <argument type="service" id="service_container" />
+            <argument>%uec_media.contexts%</argument>
+        </service>
+        <service id="uec_media.services.media" class="%uec_media.services.media.class%">
+            <argument type="service" id="uec_media.services.provider" />
+            <argument type="service" id="uec_media.manager.media" />
+        </service>
+    </services>
+</container>

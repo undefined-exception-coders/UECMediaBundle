@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="uec_media.twig.helper.class">UEC\MediaBundle\Twig\MediaHelperExtension</parameter>
+    </parameters>
+
+    <services>
+        <service id="uec_media.twig.helper" class="%uec_media.twig.helper.class%">
+            <argument type="service" id="uec_media.cdn" />
+            <tag name="twig.extension" />
+        </service>
+    </services>
+</container>
