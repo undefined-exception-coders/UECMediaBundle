@@ -3,10 +3,19 @@
 namespace UEC\MediaBundle\Form;
 
 use Symfony\Component\Form\FormBuilderInterface;
+use UEC\MediaBundle\Model\MediaCommonInterface;
 use UEC\MediaBundle\Model\MediaProviderInterface;
 
 interface FormFactoryInterface
 {
+    /**
+     * Get form name
+     *
+     * @param string|MediaCommonInterface $data
+     * @return string
+     */
+    public function getFormName($data);
+
     /**
      * Get form by the context
      *

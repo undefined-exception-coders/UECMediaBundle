@@ -3,6 +3,7 @@
 namespace UEC\MediaBundle\Form;
 
 use Symfony\Component\Form\FormFactoryInterface;
+use UEC\MediaBundle\Model\MediaCommonInterface;
 use UEC\MediaBundle\Model\MediaProviderInterface;
 use UEC\MediaBundle\Services\MediaService;
 use UEC\MediaBundle\Services\ProviderService;
@@ -30,6 +31,27 @@ class FormFactory implements MediaFormFactoryInterface
         $this->providerService = $providerService;
         $this->formFactory = $formFactory;
         $this->mediaService = $mediaService;
+    }
+
+    /**
+     * Get form name
+     *
+     * @param string|MediaCommonInterface $data
+     * @return string
+     */
+    public function getFormName($data)
+    {
+        $context = $data;
+
+        if ($data instanceof MediaCommonInterface) {
+            if ($data instanceof MediaProviderInterface) {
+                $context = $data->getMedia()->getContext();
+            } else {
+                $context = $data->getContext();
+            }
+        }
+
+        return $this->providerService->getProviderManager($context)->getFormName();
     }
 
     /**
