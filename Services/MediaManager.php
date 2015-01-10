@@ -13,6 +13,7 @@ use UEC\MediaBundle\FileSystem\FileNameGeneratorInterface;
 use UEC\MediaBundle\Model\MediaManagerInterface;
 use UEC\MediaBundle\Model\MediaProviderInterface;
 use UEC\MediaBundle\Path\PathGeneratorInterface;
+use UEC\MediaBundle\Provider\ProviderManagerInterface;
 use UEC\MediaBundle\UECMediaEvents;
 
 class MediaManager
@@ -48,7 +49,8 @@ class MediaManager
         FileNameGeneratorInterface $fileNameGenerator,
         MediaManagerInterface $mediaManager,
         EventDispatcherInterface $eventDispatcher
-    ) {
+    )
+    {
         $this->providerService = $providerService;
         $this->pathGenerator = $pathGenerator;
         $this->fileNameGenerator = $fileNameGenerator;
@@ -81,23 +83,30 @@ class MediaManager
         $context = $mediaProvider->getMedia()->getContext();
         $provider = $this->providerService->getProviderManager($context);
 
+        if (null !== $mediaProvider->getMedia()->getFile()) {
+            $this->uploadProcess($provider, $mediaProvider);
+        }
+
+        $this->persistProcess($provider, $mediaProvider);
+    }
+
+    protected function uploadProcess(ProviderManagerInterface $provider, MediaProviderInterface $mediaProvider)
+    {
         $fileInfo = $provider->getFormProcessor()->getFileInfo($mediaProvider->getMedia()->getFile());
 
         $this->eventDispatcher->dispatch(UECMediaEvents::AFTER_PROCESS_FILE, new MediaFileInfoEvent($mediaProvider, $fileInfo));
 
         $mediaProvider->getMedia()->setName($fileInfo->getName());
-
         $filePath = $provider->getFileSystem()->getFilePath($fileInfo, $mediaProvider, $this->pathGenerator);
 
         $this->eventDispatcher->dispatch(UECMediaEvents::AFTER_GENERATE_FILE_PATH, new MediaFileInfoPathEvent($mediaProvider, $fileInfo, $filePath));
 
         if ($fileInfo->isUploadedFile()) {
-            $filePath .= DIRECTORY_SEPARATOR.$this->fileNameGenerator->generate($fileInfo, $mediaProvider);
+            $filePath .= DIRECTORY_SEPARATOR . $this->fileNameGenerator->generate($fileInfo, $mediaProvider);
             $this->eventDispatcher->dispatch(UECMediaEvents::AFTER_GENERATE_FILE_NAME, new MediaFileInfoPathEvent($mediaProvider, $fileInfo, $filePath));
         }
 
         $mediaProvider->getMedia()->setPath($filePath);
-
         $uploadedResult = $provider->getFileSystem()->upload($fileInfo, $mediaProvider, $filePath);
 
         $this->eventDispatcher->dispatch(UECMediaEvents::AFTER_UPLOAD_FILE, new MediaFileInfoPathUploadEvent($mediaProvider, $fileInfo, $filePath, $uploadedResult));
@@ -105,7 +114,10 @@ class MediaManager
         $provider->getMediaProviderManager()->fillMediaProviderData($mediaProvider, $uploadedResult);
 
         $this->eventDispatcher->dispatch(UECMediaEvents::AFTER_FILL_MEDIA_PROVIDER, new MediaUploadEvent($mediaProvider, $uploadedResult));
+    }
 
+    protected function persistProcess(ProviderManagerInterface $provider, MediaProviderInterface $mediaProvider)
+    {
         $this->mediaManager->updateMedia($mediaProvider->getMedia());
         $provider->getMediaProviderManager()->updateMediaProvider($mediaProvider);
 
