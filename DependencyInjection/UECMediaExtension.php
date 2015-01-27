@@ -25,6 +25,7 @@ class UECMediaExtension extends Extension
         $container->setParameter('uec_media.model.class', $config['model']);
         $container->setParameter('uec_media.contexts', $config['contexts']);
 
+        $container->setAlias('uec_media.model_manager', $config['model_manager']);
         $container->setAlias('uec_media.path_generator', $config['path_generator']['id']);
         $container->setAlias('uec_media.manager', 'uec_media.services.media_manager');
         $container->setAlias('uec_media.file_name_generator', $config['file_name_generator']);

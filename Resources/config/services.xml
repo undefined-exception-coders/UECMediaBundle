@@ -15,7 +15,7 @@
             <argument type="service" id="uec_media.services.provider" />
             <argument type="service" id="uec_media.path_generator" />
             <argument type="service" id="uec_media.file_name_generator" />
-            <argument type="service" id="uec_media.manager.media" />
+            <argument type="service" id="uec_media.model_manager" />
             <argument type="service" id="event_dispatcher" />
         </service>
         <service id="uec_media.services.provider" class="%uec_media.services.provider.class%">
@@ -24,7 +24,7 @@
         </service>
         <service id="uec_media.services.media" class="%uec_media.services.media.class%">
             <argument type="service" id="uec_media.services.provider" />
-            <argument type="service" id="uec_media.manager.media" />
+            <argument type="service" id="uec_media.model_manager" />
         </service>
     </services>
 </container>
