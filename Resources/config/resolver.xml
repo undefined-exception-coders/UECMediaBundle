@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="uec_media.resolver.media_provider.class">UEC\MediaBundle\Resolver\MediaProviderResolver</parameter>
+    </parameters>
+
+    <services>
+        <service id="uec_media.resolver.media_provider" class="%uec_media.resolver.media_provider.class%">
+            <argument type="service" id="uec_media.services.provider" />
+        </service>
+    </services>
+</container>

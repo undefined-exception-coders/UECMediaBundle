@@ -34,6 +34,7 @@ class UECMediaExtension extends Extension
         $loader->load('file_system.xml');
         $loader->load('form.xml');
         $loader->load('path.xml');
+        $loader->load('resolver.xml');
         $loader->load('services.xml');
         $loader->load('twig.xml');
     }

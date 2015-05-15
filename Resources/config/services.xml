@@ -18,13 +18,13 @@
             <argument type="service" id="uec_media.model_manager" />
             <argument type="service" id="event_dispatcher" />
         </service>
-        <service id="uec_media.services.provider" class="%uec_media.services.provider.class%">
-            <argument type="service" id="service_container" />
-            <argument>%uec_media.contexts%</argument>
-        </service>
         <service id="uec_media.services.media" class="%uec_media.services.media.class%">
             <argument type="service" id="uec_media.services.provider" />
             <argument type="service" id="uec_media.model_manager" />
+        </service>
+        <service id="uec_media.services.provider" class="%uec_media.services.provider.class%">
+            <argument type="service" id="service_container" />
+            <argument>%uec_media.contexts%</argument>
         </service>
     </services>
 </container>
