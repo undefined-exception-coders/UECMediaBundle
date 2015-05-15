@@ -5,7 +5,7 @@ namespace UEC\MediaBundle\Services;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use UEC\MediaBundle\Provider\ProviderManagerInterface;
 
-class ProviderService
+class ProviderService implements ProviderServiceInterface
 {
     /**
      * @var \Symfony\Component\DependencyInjection\ContainerInterface
@@ -23,11 +23,6 @@ class ProviderService
         $this->contexts = $contexts;
     }
 
-    /**
-     * @param $context
-     * @return ProviderManagerInterface
-     * @throws \Exception
-     */
     public function getProviderManager($context)
     {
         if (!array_key_exists($context, $this->contexts)) {
@@ -35,5 +30,10 @@ class ProviderService
         }
 
         return $this->container->get($this->contexts[$context]['id']);
+    }
+
+    public function getProviderContextsKey()
+    {
+        return array_keys($this->contexts);
     }
 } 

@@ -9,7 +9,7 @@ use UEC\MediaBundle\Services\ProviderService;
 class MediaService
 {
     /**
-     * @var ProviderService
+     * @var ProviderServiceInterface
      */
     protected $providerService;
 
@@ -18,7 +18,7 @@ class MediaService
      */
     protected $mediaManager;
 
-    function __construct(ProviderService $providerService, MediaManagerInterface $mediaManager)
+    function __construct(ProviderServiceInterface $providerService, MediaManagerInterface $mediaManager)
     {
         $this->providerService = $providerService;
         $this->mediaManager = $mediaManager;

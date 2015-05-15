@@ -7,15 +7,16 @@ use UEC\MediaBundle\Model\MediaInterface;
 use UEC\MediaBundle\Model\MediaProviderInterface;
 use UEC\MediaBundle\Provider\ProviderManagerInterface;
 use UEC\MediaBundle\Services\ProviderService;
+use UEC\MediaBundle\Services\ProviderServiceInterface;
 
 class CDNManager
 {
     /**
-     * @var \UEC\MediaBundle\Services\ProviderService
+     * @var ProviderServiceInterface
      */
     protected $providerService;
 
-    function __construct(ProviderService $providerService)
+    function __construct(ProviderServiceInterface $providerService)
     {
         $this->providerService = $providerService;
     }

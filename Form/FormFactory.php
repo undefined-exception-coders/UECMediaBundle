@@ -8,11 +8,12 @@ use UEC\MediaBundle\Model\MediaProviderInterface;
 use UEC\MediaBundle\Services\MediaService;
 use UEC\MediaBundle\Services\ProviderService;
 use UEC\MediaBundle\Form\FormFactoryInterface as MediaFormFactoryInterface;
+use UEC\MediaBundle\Services\ProviderServiceInterface;
 
 class FormFactory implements MediaFormFactoryInterface
 {
     /**
-     * @var \UEC\MediaBundle\Services\ProviderService
+     * @var ProviderServiceInterface
      */
     protected $providerService;
 
@@ -26,7 +27,7 @@ class FormFactory implements MediaFormFactoryInterface
      */
     protected $mediaService;
 
-    function __construct(ProviderService $providerService, FormFactoryInterface $formFactory, MediaService $mediaService)
+    function __construct(ProviderServiceInterface $providerService, FormFactoryInterface $formFactory, MediaService $mediaService)
     {
         $this->providerService = $providerService;
         $this->formFactory = $formFactory;

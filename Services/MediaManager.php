@@ -19,7 +19,7 @@ use UEC\MediaBundle\UECMediaEvents;
 class MediaManager
 {
     /**
-     * @var ProviderService
+     * @var ProviderServiceInterface
      */
     protected $providerService;
 
@@ -44,7 +44,7 @@ class MediaManager
     protected $eventDispatcher;
 
     function __construct(
-        ProviderService $providerService,
+        ProviderServiceInterface $providerService,
         PathGeneratorInterface $pathGenerator,
         FileNameGeneratorInterface $fileNameGenerator,
         MediaManagerInterface $mediaManager,
