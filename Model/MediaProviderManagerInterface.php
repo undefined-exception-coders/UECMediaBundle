@@ -22,10 +22,10 @@ interface MediaProviderManagerInterface
      * Updates a media.
      *
      * @param MediaProviderInterface $mediaProvider
-     *
+     * @param boolean $andFlush
      * @return void
      */
-    public function updateMediaProvider(MediaProviderInterface $mediaProvider);
+    public function updateMediaProvider(MediaProviderInterface $mediaProvider, $andFlush = true);
 
     /**
      * Find mediaProvider by media

@@ -36,10 +36,13 @@ class MediaManager extends BaseMediaManager
 
     /**
      * @param MediaInterface $media
+     * @param boolean $andFlush
      */
-    protected function doSaveMedia(MediaInterface $media)
+    protected function doSaveMedia(MediaInterface $media, $andFlush = true)
     {
         $this->em->persist($media);
-        $this->em->flush();
+        if ($andFlush) {
+            $this->em->flush();
+        }
     }
 }

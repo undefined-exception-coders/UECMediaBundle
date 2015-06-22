@@ -19,12 +19,12 @@ abstract class MediaProviderManager implements MediaProviderManagerInterface
      * Updates a media.
      *
      * @param MediaProviderInterface $mediaProvider
-     *
+     * @param boolean $andFlush
      * @return void
      */
-    public function updateMediaProvider(MediaProviderInterface $mediaProvider)
+    public function updateMediaProvider(MediaProviderInterface $mediaProvider, $andFlush = true)
     {
-        $this->doSaveMediaProvider($mediaProvider);
+        $this->doSaveMediaProvider($mediaProvider, $andFlush);
     }
 
     /**

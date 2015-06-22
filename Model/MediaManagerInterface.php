@@ -23,8 +23,8 @@ interface MediaManagerInterface
      * Updates a media.
      *
      * @param MediaInterface $media
-     *
+     * @param boolean $andFlush
      * @return void
      */
-    public function updateMedia(MediaInterface $media);
+    public function updateMedia(MediaInterface $media, $andFlush = true);
 }

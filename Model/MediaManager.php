@@ -24,12 +24,12 @@ abstract class MediaManager implements MediaManagerInterface
      * Updates a media.
      *
      * @param MediaInterface $media
-     *
+     * @param boolean $andFlush
      * @return void
      */
-    public function updateMedia(MediaInterface $media)
+    public function updateMedia(MediaInterface $media, $andFlush = true)
     {
-        $this->doSaveMedia($media);
+        $this->doSaveMedia($media, $andFlush = true);
     }
 
     abstract protected function doSaveMedia(MediaInterface $media);
