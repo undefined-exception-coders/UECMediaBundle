@@ -62,9 +62,10 @@ class MediaManager
      * Process the Form and return the persisted MediaProvider
      *
      * @param FormInterface $form
+     * @param boolean $andFlush
      * @return MediaProviderInterface
      */
-    public function processForm(FormInterface $form)
+    public function processForm(FormInterface $form, $andFlush = true)
     {
         $data = $form->getData();
 
@@ -77,8 +78,9 @@ class MediaManager
      * Execute the full process for upload and persist MediaProvider
      *
      * @param MediaProviderInterface $mediaProvider
+     * @param boolean $andFlush
      */
-    public function save(MediaProviderInterface $mediaProvider)
+    public function save(MediaProviderInterface $mediaProvider, $andFlush = true)
     {
         $context = $mediaProvider->getMedia()->getContext();
         $provider = $this->providerService->getProviderManager($context);
@@ -87,7 +89,7 @@ class MediaManager
             $this->uploadProcess($provider, $mediaProvider);
         }
 
-        $this->persistProcess($provider, $mediaProvider);
+        $this->persistProcess($provider, $mediaProvider, $andFlush);
     }
 
     protected function uploadProcess(ProviderManagerInterface $provider, MediaProviderInterface $mediaProvider)
@@ -116,10 +118,10 @@ class MediaManager
         $this->eventDispatcher->dispatch(UECMediaEvents::AFTER_FILL_MEDIA_PROVIDER, new MediaUploadEvent($mediaProvider, $uploadedResult));
     }
 
-    protected function persistProcess(ProviderManagerInterface $provider, MediaProviderInterface $mediaProvider)
+    protected function persistProcess(ProviderManagerInterface $provider, MediaProviderInterface $mediaProvider, $andFlush)
     {
-        $this->mediaManager->updateMedia($mediaProvider->getMedia());
-        $provider->getMediaProviderManager()->updateMediaProvider($mediaProvider);
+        $this->mediaManager->updateMedia($mediaProvider->getMedia(), $andFlush);
+        $provider->getMediaProviderManager()->updateMediaProvider($mediaProvider, $andFlush);
 
         $this->eventDispatcher->dispatch(UECMediaEvents::AFTER_PERSIST_MEDIA_PROVIDER, new MediaEvent($mediaProvider));
     }
