@@ -42,7 +42,7 @@ class MediaManager extends BaseMediaManager
     {
         $this->em->persist($media);
         if ($andFlush) {
-            $this->em->flush();
+            $this->em->flush($media);
         }
     }
 }
