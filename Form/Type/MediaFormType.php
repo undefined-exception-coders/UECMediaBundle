@@ -3,7 +3,7 @@
 namespace UEC\MediaBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class MediaFormType extends AbstractType
 {
@@ -17,7 +17,7 @@ class MediaFormType extends AbstractType
         $this->modelClass = $modelClass;
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
             'data_class' => $this->modelClass,
